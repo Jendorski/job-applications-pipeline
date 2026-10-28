@@ -1,0 +1,138 @@
+# Base CV variants. A track is a complete, untailored CV: the pipeline picks the best track
+# for a job, and the tailor then reorders and trims within the verified profile.
+#
+# summary may use {years} (computed from person.career_start). Every skill must be in the
+# profile's allow-list, and every bullet/project id must be verified. `jap profile check`
+# enforces both.
+
+backend:
+  label: Backend
+  headlines:
+    - Backend Engineer (Node.js / TypeScript / Python)
+    - Senior Backend Engineer (Node.js / TypeScript)
+    - Senior Backend Engineer (Python / FastAPI)
+  summary: >-
+    Backend engineer with {years}+ years building and running production services in industrial IoT,
+    fintech and Web3. At Company A I build factory-monitoring backends in Python/FastAPI: machine data in
+    from the shop floor, values written back to running machines, and SAP and ERP integrations that stay correct
+    under retries and partial failure. Since 2023 at Company B I have been the main backend author of
+    Node.js/TypeScript marketplace and escrow platforms on PostgreSQL and MongoDB. I specialise in
+    event-driven, idempotent services that integrate with systems whose timing cannot be trusted:
+    devices, ERPs, blockchains and payment providers.
+  skill_groups:
+    - label: Backend
+      skills: [Node.js, TypeScript, Express, NestJS, Fastify, Python, FastAPI, REST API design, OpenAPI/Swagger]
+    - label: Real-Time & Async
+      skills: [Socket.IO, WebSockets, event-driven architecture, webhooks, outbox pattern, BullMQ, idempotency, exponential backoff]
+    - label: Data
+      skills: [PostgreSQL, MongoDB, MS SQL Server, Redis, SQLAlchemy, Alembic, Sequelize, Mongoose]
+    - label: Integrations
+      skills: [SAP (via MuleSoft), ERP REST APIs, Veriff, AWS S3, Google Cloud Storage, Anthropic API (Claude)]
+    - label: Security
+      skills: [JWT authentication, 2FA/OTP, API keys with scoped access, constant-time secret comparison, rate limiting]
+    - label: Delivery & Infrastructure
+      skills: [Docker, Docker Compose, GitHub Actions, Tailscale, Cloudflare Tunnel, AWS, GCP Cloud Run, Linux]
+  experience:
+    company_a: [company_a.monitoring_platform, company_a.erp_pipeline, company_a.device_writeback, company_a.erp_sync, company_a.security, company_a.deploy]
+    company_b: [company_b.core_api, company_b.marketplace, company_b.onchain_payments, company_b.nestjs_migration, company_b.sdks]
+    company_d: [company_d.distribution, company_d.webhooks, company_d.cicd]
+    company_e: [company_e.wallet_api, company_e.fiat_crypto, company_e.ledger, company_e.reconciliation]
+  projects: [proj.trading_platform, proj.booking_api]
+  keywords: [backend, api, node, typescript, python, fastapi, postgresql, microservices, distributed, integration]
+
+fullstack:
+  label: Full_Stack
+  headlines:
+    - Full-Stack Engineer (TypeScript / React / Node.js)
+    - Full-Stack Engineer (React / Python / FastAPI)
+  summary: >-
+    Backend-first full-stack engineer with {years}+ years shipping production systems end to end. At
+    Company A I build both sides of an industrial monitoring platform: Python/FastAPI services and the
+    React/TypeScript operator and admin UI, from KPI dashboards to deck.gl heatmaps. Since 2023 at
+    Company B I have built Node.js/TypeScript marketplace backends, real-time messaging over Socket.IO,
+    and the company's published TypeScript SDKs. Comfortable owning a feature from the data model and
+    API to the screen it appears on.
+  skill_groups:
+    - label: Frontend
+      skills: [React, TypeScript, Vite, TanStack Query, Recharts, deck.gl, i18next, Tailwind CSS]
+    - label: Backend
+      skills: [Node.js, Express, NestJS, Python, FastAPI, REST API design, OpenAPI/Swagger]
+    - label: Real-Time & Async
+      skills: [Socket.IO, WebSockets, BullMQ, event-driven architecture, webhooks]
+    - label: Data
+      skills: [PostgreSQL, MongoDB, Redis, Firestore, SQLAlchemy, Sequelize]
+    - label: Delivery & Testing
+      skills: [Docker, GitHub Actions, AWS, GCP Cloud Run, Linux, pytest, Jest, Vitest]
+  experience:
+    company_a: [company_a.frontend, company_a.monitoring_platform, company_a.tracking_backend, company_a.erp_pipeline]
+    company_b: [company_b.marketplace, company_b.core_api, company_b.sdks, company_b.nestjs_migration]
+    company_d: [company_d.distribution, company_d.webhooks]
+    company_e: [company_e.wallet_api, company_e.fiat_crypto, company_e.ledger]
+  projects: [proj.realtime_chat, proj.booking_api]
+  keywords: [full-stack, fullstack, react, frontend, typescript, node, dashboard, ui]
+
+industrial_iot:
+  label: Industrial_IoT
+  headlines:
+    - Backend Engineer, Industrial IoT (Python / Node.js)
+    - IoT Backend Engineer (Python / TypeScript)
+  summary: >-
+    Backend engineer with {years}+ years in production systems, currently building industrial IoT software
+    for manufacturing plants at Company A. I work across the whole path: machine-data ingestion from
+    factory gateways, KPI engines (OEE, TEEP), safe write-back of values to running machines, ERP and SAP
+    integrations, and deployments to on-premise factory VMs. Before that I spent years on
+    fintech and Web3 backends where a dropped or duplicated event costs real money, which is the same
+    discipline devices and ERPs demand.
+  skill_groups:
+    - label: Industrial & IoT
+      skills: [machine-data ingestion, remote write-back to devices, OEE/TEEP KPIs]
+    - label: Backend
+      skills: [Python, FastAPI, Node.js, TypeScript, Express, REST API design]
+    - label: Integrations
+      skills: [SAP (via MuleSoft), ERP REST APIs, MS SQL Server, outbox pattern, Slack alerts]
+    - label: Data
+      skills: [PostgreSQL, Redis, SQLite, SQLAlchemy, Alembic, Firestore]
+    - label: Security
+      skills: [JWT authentication, API keys with scoped access, constant-time secret comparison, rate limiting]
+    - label: Delivery & Infrastructure
+      skills: [Docker, Docker Compose, GitHub Actions, Tailscale, Cloudflare Tunnel, Linux]
+  experience:
+    company_a: [company_a.monitoring_platform, company_a.device_writeback, company_a.ingestion, company_a.erp_pipeline, company_a.erp_sync, company_a.security, company_a.deploy]
+    company_b: [company_b.core_api, company_b.onchain_payments, company_b.marketplace]
+    company_d: [company_d.distribution, company_d.cicd]
+    company_e: [company_e.fiat_crypto, company_e.reconciliation]
+  projects: [proj.trading_platform]
+  keywords: [iot, industrial, scada, manufacturing, edge, plc, iiot, industry 4.0]
+
+fintech_web3:
+  label: Fintech_Web3
+  headlines:
+    - Backend Engineer, Fintech & Web3 (Node.js / TypeScript)
+    - Senior Backend Engineer, Payments (Node.js / TypeScript)
+  summary: >-
+    Backend engineer with {years}+ years building systems that move money: fiat-to-crypto on- and off-ramps,
+    custodial wallets, USDC deposits and on-chain escrow, payouts and reconciliation. Since 2023 at Company B
+    I have been the main backend author of a Node.js/TypeScript marketplace platform on PostgreSQL and
+    MongoDB, and I built its published TypeScript SDKs and an agent-facing CLI for escrowed jobs. Earlier,
+    at Company E, I built a wallet API on Fireblocks and BitGo and fiat payment rails. Today at Company A I
+    also build ERP integrations with the same focus on idempotency, retries and correctness.
+  skill_groups:
+    - label: Payments & Web3
+      skills: [ethers.js, Web3.js, Avalanche, USDC, on-chain escrow, custodial wallets, Fireblocks, BitGo, virtual-account providers]
+    - label: Backend
+      skills: [Node.js, TypeScript, Express, NestJS, Fastify, REST API design, OpenAPI/Swagger]
+    - label: Async & Reliability
+      skills: [webhooks, event-driven architecture, idempotency, BullMQ, outbox pattern, exponential backoff]
+    - label: Data
+      skills: [PostgreSQL, MongoDB, Redis, Sequelize, Mongoose]
+    - label: Security & Compliance
+      skills: [JWT authentication, 2FA/OTP, Veriff, rate limiting]
+    - label: Delivery & Tooling
+      skills: [Docker, GitHub Actions, AWS, Google Cloud Storage, Linux, npm package publishing, SDK design]
+  experience:
+    company_a: [company_a.erp_pipeline, company_a.monitoring_platform, company_a.security]
+    company_b: [company_b.core_api, company_b.onchain_payments, company_b.marketplace, company_b.sdks, company_b.agent_cli, company_b.nestjs_migration, company_b.migrations]
+    company_d: [company_d.distribution, company_d.webhooks, company_d.cicd]
+    company_e: [company_e.wallet_api, company_e.fiat_crypto, company_e.ledger, company_e.reconciliation, company_e.security]
+  projects: [proj.trading_platform]
+  keywords: [fintech, payments, crypto, web3, blockchain, wallet, escrow, defi, banking, ledger]

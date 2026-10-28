@@ -1,0 +1,503 @@
+# Master profile: the single source of truth for every generated CV and cover letter.
+#
+# This is a fictional example (John Doe, Company A–E). Copy this folder to profile/ and replace
+# everything with your own facts; profile/ is gitignored. The tests run against this example.
+#
+# Per-item fields:
+#   source:   code | cv | user          where the claim comes from
+#   status:   verified | needs_confirmation
+#   evidence: repo(s) and the date range of your commits
+#
+# Pipeline rules:
+#   - The tailor only sees items with status: verified.
+#   - `show_on_cv: false` roles never appear as employers in a CV or letter. Their skills still
+#     count toward the allow-list (real hands-on experience), but their bullets are not used.
+#   - `hobby: true` projects are only offered for games / creative-tech roles.
+#   - Terms in `never_claim` fail validation anywhere in generated output.
+#   - Dates, titles, companies and contact details are copied verbatim, never generated.
+
+person:
+  name: John Doe
+  email: john.doe@example.com
+  links:
+    - linkedin.com/in/john-doe-example/
+    - github.com/john-doe-example
+  location_line_template: "Open to relocating to {location}"
+  career_start: 2019-06          # compute "N+ years"; never hard-code it
+
+# ---------------------------------------------------------------------------
+# Skills: canonical names = the validator's allow-list.
+# ---------------------------------------------------------------------------
+skills:
+  languages: [TypeScript, JavaScript, Python, Rust, Kotlin, Java, C#, C++, Lua, GDScript, SQL, Bash]
+  backend: [Node.js, Express, NestJS, Fastify, FastAPI, Axum, tokio, tsoa, tsyringe,
+            REST API design, OpenAPI/Swagger, WebSockets, Socket.IO]
+  data: [PostgreSQL, MongoDB, Mongoose, MySQL, MS SQL Server, Redis, SQLite, Firestore,
+         SQLAlchemy, Alembic, Sequelize, TypeORM]
+  async: [BullMQ, Bull, cron scheduling, outbox pattern, exponential backoff, idempotency,
+          event-driven architecture, webhooks]
+  industrial_iot: [machine-data ingestion,
+                   remote write-back to devices, OEE/TEEP KPIs]
+  integrations: [SAP (via MuleSoft), ERP REST APIs, Veriff, SumSub, Google OAuth, GitHub OAuth,
+                 Apple OAuth, SendGrid, AWS S3, AWS SES, AWS SNS, Google Cloud Storage,
+                 Slack alerts, exchange REST/WebSocket APIs, Fireblocks, BitGo,
+                 virtual-account providers, Firebase Cloud Messaging]
+  web3: [ethers.js, Web3.js, Avalanche, USDC, on-chain escrow, wallet signing, custodial wallets]
+  ai_llm: [Anthropic API (Claude), LangGraph, LangChain, Qdrant,
+           Model Context Protocol (MCP), agent-to-agent (A2A) systems]
+  security: [JWT authentication, 2FA/OTP, role-based access control, API keys with scoped access,
+             constant-time secret comparison, rate limiting, HashiCorp Vault, ClamAV file scanning]
+  infrastructure: [Docker, Docker Compose, CI/CD, GitHub Actions, AWS, Bitbucket Pipelines,
+                   Tailscale, Cloudflare Tunnel, Caddy, Railway, Heroku, Firebase, GCP Cloud Run,
+                   Linux, VPS operations]
+  frontend: [React, Vite, TanStack Query, deck.gl, Recharts, i18next, Tailwind CSS, React Email]
+  testing: [pytest, Jest, Mocha, Vitest, high-coverage test suites, backtesting harnesses]
+  tooling: [npm package publishing, SDK design, CLI design, Puppeteer]
+  games: [Godot 4]
+
+aliases:
+  Postgres: PostgreSQL
+  Mongo: MongoDB
+  Node: Node.js
+  NodeJS: Node.js
+  Nest: NestJS
+  TS: TypeScript
+  JS: JavaScript
+  SQL Server: MS SQL Server
+  MSSQL: MS SQL Server
+  GCS: Google Cloud Storage
+  Socket.io: Socket.IO
+  RBAC: role-based access control
+  Claude API: Anthropic API (Claude)
+  LLM API integration: Anthropic API (Claude)
+
+# ---------------------------------------------------------------------------
+# Experience
+# priority: 1 = always include, 2 = include when relevant, 3 = filler
+# ---------------------------------------------------------------------------
+experience:
+
+  - id: company_a
+    company: Company A
+    title: Backend Engineer
+    location: Remote
+    start: 2026-02
+    end: null
+    domain: [industrial-iot, manufacturing, edge]
+    evidence: "monitoring-backend, monitoring-frontend, ingestion-service (2026-02 → 2026-10)"
+    bullets:
+      - id: company_a.monitoring_platform
+        priority: 1
+        source: code
+        status: verified
+        evidence: monitoring-backend (2026-02 → 2026-10)
+        tags: [python, api, iot, data, kpi]
+        skills: [Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, Redis, machine-data ingestion, OEE/TEEP KPIs]
+        text: >-
+          Building a multi-tenant monitoring platform for manufacturing plants (Python/FastAPI, async
+          SQLAlchemy, PostgreSQL, Redis) that turns machine data into production events and
+          KPIs: OEE, TEEP, stoppage and reject Pareto, and per-operator KPIs
+      - id: company_a.erp_pipeline
+        priority: 1
+        source: code
+        status: verified
+        evidence: monitoring-backend (2026-09 → 2026-10)
+        tags: [integration, erp, reliability, async, idempotency]
+        skills: [SAP (via MuleSoft), outbox pattern, idempotency, Slack alerts]
+        text: >-
+          Built the hourly SAP production-confirmation pipeline (via MuleSoft): confirmations built
+          from shop-floor data, an outbox with retries and backoff, selective send and rebuild-from-source,
+          a reconciliation report, and Slack paging when an hour gets stuck
+      - id: company_a.erp_sync
+        priority: 1
+        source: code
+        status: verified
+        evidence: monitoring-backend (2026-07 → 2026-08)
+        tags: [integration, erp, sql-server, scheduling]
+        skills: [ERP REST APIs, MS SQL Server, cron scheduling]
+        text: >-
+          Integrated the plants' ERPs: a REST client with scheduled multi-tenant sync of production
+          orders, stop and scrap reasons and employees, plus a writeback service to the customer's SQL Server
+      - id: company_a.device_writeback
+        priority: 1
+        source: code
+        status: verified
+        evidence: ingestion-service + monitoring-backend (2026-08)
+        tags: [iot, safety, concurrency, integration]
+        skills: [remote write-back to devices]
+        text: >-
+          Built remote write-back to factory machines: starting a work order writes product,
+          mould and cycle-time values to the machine gateways, with per-machine tag mapping, an enable
+          toggle behind explicit confirmation, a local kill switch, and locking against concurrent writes
+      - id: company_a.ingestion
+        priority: 2
+        source: code
+        status: verified
+        evidence: ingestion-service (2026-02 → 2026-08)
+        tags: [iot, edge, python]
+        skills: [machine-data ingestion, SQLite, Python]
+        text: >-
+          Contributed to the ingestion service that polls the machine gateways, buffers state changes
+          locally in SQLite and forwards them to the backend
+      - id: company_a.security
+        priority: 2
+        source: code
+        status: verified
+        evidence: monitoring-backend (2026-02, 2026-08)
+        tags: [security, auth, api]
+        skills: [JWT authentication, API keys with scoped access, constant-time secret comparison, rate limiting]
+        text: >-
+          Hardened authentication: fixed a JWT bypass, user enumeration and a timing attack on the
+          gateway ingestion secret, and added read-scoped API keys for integration consumers
+      - id: company_a.frontend
+        priority: 2
+        source: code
+        status: verified
+        evidence: monitoring-frontend (2026-03 → 2026-10)
+        tags: [frontend, react, dashboards, fullstack, i18n]
+        skills: [React, TypeScript, TanStack Query, Recharts, Vite, i18next]
+        text: >-
+          Built operator and admin UI in React/TypeScript: KPI dashboards, stoppage justification
+          tools and the ERP confirmations console, translated into 6 languages
+      - id: company_a.deploy
+        priority: 2
+        source: code
+        status: verified
+        evidence: monitoring-backend (2026-06 → 2026-10)
+        tags: [devops, ci-cd, on-prem]
+        skills: [GitHub Actions, Docker, Docker Compose, Tailscale, Cloudflare Tunnel]
+        text: >-
+          Automated deployment to on-premise factory VMs: GitHub Actions builds and pushes images, reaches
+          the private VM over Tailscale, and refuses to swap containers while a replica is behind the
+          database schema
+      - id: company_a.tracking_backend
+        priority: 3
+        source: code
+        status: verified
+        evidence: tracking-backend (2026-04 → 2026-05)
+        tags: [typescript, analytics, realtime, testing, edge]
+        skills: [Node.js, TypeScript, Express, Redis, Firestore, deck.gl]
+        text: >-
+          Built Node.js/TypeScript analytics APIs for real-time indoor asset tracking (Redis cache,
+          dwell heatmaps rendered with deck.gl, zone statistics) and raised test coverage to 95%
+
+  - id: company_b
+    company: Company B
+    title: Backend Engineer (Contract)
+    location: Remote
+    start: 2023-02
+    end: null
+    schedule_changes:
+      - from: 2026-02
+        type: part-time
+    date_display: "Feb 2023 – Present (part-time since Feb 2026)"
+    domain: [marketplace, web3, fintech, ai]
+    evidence: "core-api, marketplace-api, sdk (2023-02 → 2026-10)"
+    bullets:
+      - id: company_b.core_api
+        priority: 1
+        source: code
+        status: verified
+        evidence: core-api (2023-02 → 2026-06)
+        tags: [typescript, api, data, queues, ownership]
+        skills: [Node.js, TypeScript, Express, PostgreSQL, Sequelize, Redis, BullMQ]
+        text: >-
+          Main backend author of the core API behind the company's white-label marketplace platform
+          (TypeScript/Express, PostgreSQL/Sequelize, Redis): wallets, deposits, invoices, admin, and
+          BullMQ job queues for site deployment
+      - id: company_b.marketplace
+        priority: 1
+        source: code
+        status: verified
+        evidence: marketplace-api (2023-06 → 2026-05)
+        tags: [typescript, realtime, kyc, payments]
+        skills: [Node.js, TypeScript, MongoDB, Mongoose, Socket.IO, Veriff, JWT authentication, 2FA/OTP]
+        text: >-
+          Built marketplace services (Node.js/TypeScript, MongoDB): escrowed jobs and payouts, Veriff
+          KYC with webhook processing, 2FA/OTP, and real-time chat over Socket.IO
+      - id: company_b.onchain_payments
+        priority: 1
+        source: code
+        status: verified
+        evidence: core-api + marketplace-api (2023 → 2025)
+        tags: [web3, event-driven, idempotency, payments]
+        skills: [Web3.js, ethers.js, Avalanche, USDC, idempotency, event-driven architecture]
+        text: >-
+          Built USDC deposit and escrow flows on Avalanche: tracking deposits and confirmations from
+          the chain, payout transaction tracking, and the Web3.js → ethers migration
+      - id: company_b.nestjs_migration
+        priority: 1
+        source: code
+        status: verified
+        evidence: marketplace-api-v2 (2026-05 → 2026-10)
+        tags: [nestjs, migration, realtime, security, web3]
+        skills: [NestJS, Fastify, MongoDB, Redis, Socket.IO]
+        text: >-
+          Migrated the marketplace API from Express to NestJS + Fastify: a WebSocket chat gateway with a
+          Redis adapter, on-chain escrow release paths, and hardening against replayed logins and unscoped writes
+      - id: company_b.migrations
+        priority: 2
+        source: code
+        status: verified
+        evidence: core-api (2025)
+        tags: [migration, cloud, data]
+        skills: [Google Cloud Storage, AWS S3, Sequelize]
+        text: >-
+          Led platform migrations: file storage from AWS S3 to Google Cloud Storage with scripts to
+          rewrite stored links, and an ORM upgrade from Sequelize v6 to v7
+      - id: company_b.sdks
+        priority: 2
+        source: code
+        status: verified
+        evidence: sdk (2023-06 → 2026-03)
+        tags: [sdk, npm, typescript, developer-experience]
+        skills: [TypeScript, npm package publishing, SDK design, exponential backoff, Socket.IO]
+        text: >-
+          Built and published the company's TypeScript SDKs on npm: auth, escrow and deposits, and
+          real-time messaging with acknowledged sends, plus configurable exponential backoff
+      - id: company_b.agent_cli
+        priority: 2
+        source: code
+        status: verified
+        evidence: agent-cli (2026-07 → 2026-09)
+        tags: [cli, ai, agents, web3]
+        skills: [Node.js, CLI design, ethers.js, Anthropic API (Claude), agent-to-agent (A2A) systems, Docker]
+        text: >-
+          Built an npm CLI that lets AI agents use the marketplace from the terminal (create and fund
+          escrowed jobs, deliver, release payment), and a Claude-powered agent-to-agent daemon in Docker
+
+  # --- Contract: real coding experience, never listed on CVs ---
+
+  - id: company_c
+    company: Company C
+    title: Backend Engineer (Contract)
+    show_on_cv: false
+    start: 2025-07
+    end: 2026-02
+    domain: [proptech]
+    evidence: rental-backend (2025-07 → 2026-02), sole author
+    bullets:
+      - id: company_c.backend
+        priority: 1
+        source: code
+        status: verified
+        evidence: rental-backend
+        tags: [typescript, api, ownership, greenfield]
+        skills: [Node.js, TypeScript, Express, tsoa, tsyringe, MongoDB, Mongoose, Redis, Docker, Railway]
+        text: >-
+          Sole backend engineer on a rental platform: built the TypeScript/Express API from the first
+          commit (tsoa + OpenAPI, tsyringe DI, MongoDB, Redis) and its Docker and Railway deployment
+      - id: company_c.auth_security
+        priority: 2
+        source: code
+        status: verified
+        evidence: rental-backend (2025-08 → 2025-09)
+        tags: [security, auth]
+        skills: [JWT authentication, 2FA/OTP, Google OAuth, Apple OAuth, HashiCorp Vault, rate limiting, ClamAV file scanning]
+        text: >-
+          Implemented authentication and security: 2FA, Google and Apple OAuth, JWT key rotation with
+          secrets in HashiCorp Vault, rate limiting, and ClamAV scanning of uploads
+
+  # --- Earlier roles ---
+
+  - id: company_d
+    company: Company D
+    title: Backend Engineer
+    location: Remote
+    start: 2022-08
+    end: 2023-05
+    domain: [fintech, crypto]
+    evidence: "No repository available; content from previously sent CVs"
+    bullets:
+      - id: company_d.distribution
+        priority: 1
+        source: cv
+        status: verified
+        tags: [ownership, data, transactions]
+        skills: []
+        text: >-
+          Designed and shipped a crypto distribution feature from schema to production for large user
+          campaigns across partner platforms, handling wallet attribution, balance updates and
+          transactional integrity
+      - id: company_d.webhooks
+        priority: 2
+        source: cv
+        status: verified
+        tags: [async, integration]
+        skills: [webhooks, event-driven architecture]
+        text: Built webhook-driven event processing for asynchronous workflows with third-party providers
+      - id: company_d.cicd
+        priority: 2
+        source: cv
+        status: verified
+        tags: [devops, ci-cd, linux]
+        skills: [GitHub Actions, AWS, Linux]
+        text: >-
+          Built CI/CD pipelines with GitHub Actions and AWS; managed Linux servers for uptime,
+          security patching and reliability
+
+  - id: company_e
+    company: Company E
+    title: Backend Engineer / Team Lead (Early-Stage Startup)
+    location: Remote
+    start: 2019-06
+    end: 2022-07
+    domain: [fintech, crypto]
+    evidence: wallet-api (2021-07 → 2022-06)
+    bullets:
+      - id: company_e.wallet_api
+        priority: 1
+        source: code
+        status: verified
+        evidence: wallet-api (2021-07 → 2022-06)
+        tags: [payments, custody, api, ownership]
+        skills: [Node.js, Express, MongoDB, Mongoose, Fireblocks, BitGo, custodial wallets]
+        text: >-
+          Main contributor to the wallet API (Node.js/Express, MongoDB): custodial BTC and USDT wallets
+          through Fireblocks and BitGo, send and receive with on-chain transaction details, and partner API keys
+      - id: company_e.fiat_crypto
+        priority: 1
+        source: code
+        status: verified
+        evidence: wallet-api (2021-07 → 2022-06)
+        tags: [payments, integration, webhooks, fiat]
+        skills: [virtual-account providers, webhooks]
+        text: >-
+          Built the fiat on- and off-ramp for crypto purchases: virtual accounts with webhook-driven
+          settlement, payouts and withdrawals, and exchange-rate handling with fees for each purchase
+      - id: company_e.ledger
+        priority: 1
+        source: cv
+        status: verified
+        tags: [data, modelling, correctness]
+        skills: []
+        text: Designed the internal balance-tracking data model that served as the source of truth for user funds
+      - id: company_e.reconciliation
+        priority: 2
+        source: code
+        status: verified
+        evidence: wallet-api (2021–2022)
+        tags: [reliability, reconciliation, cron]
+        skills: [cron scheduling]
+        text: >-
+          Added a scheduled job that re-checks pending and completed transactions against the chain,
+          catching delayed confirmations and preventing balance inconsistencies
+      - id: company_e.security
+        priority: 2
+        source: code
+        status: verified
+        evidence: wallet-api (2021–2022)
+        tags: [security, auth]
+        skills: [2FA/OTP, JWT authentication]
+        text: >-
+          Secured withdrawals behind 2FA and OTP verification, and implemented tiered KYC levels and
+          push notifications for account activity
+
+# ---------------------------------------------------------------------------
+# Projects
+# ---------------------------------------------------------------------------
+projects:
+  - id: proj.trading_platform
+    name: Automated Trading Platform (personal)
+    source: code
+    status: verified
+    evidence: "trading-bots (2025-08 → 2026-10)"
+    stack: [Rust, tokio, Axum, Redis, Docker Compose, Caddy, Bitbucket Pipelines, React]
+    tags: [rust, distributed, realtime, devops, fintech]
+    text: >-
+      A self-hosted fleet of Rust services for crypto futures: market analyzers publishing setups over
+      shared Redis, execution bots with layered risk guards, and reconciliation against live exchange
+      positions. Runs on one VPS under Docker Compose with Caddy and Bitbucket Pipelines CI/CD.
+  - id: proj.realtime_chat
+    name: Real-Time Messaging App
+    source: cv
+    status: verified
+    repo: github.com/john-doe-example/realtime-chat
+    stack: [React, TypeScript, Express, WebSockets, Redis, Docker]
+    tags: [realtime, fullstack]
+    text: >-
+      Two-way real-time messaging over persistent WebSocket connections: Express backend with Redis,
+      React frontend, and shared types across client and server.
+  - id: proj.booking_api
+    name: Short-Let Booking Backend
+    source: code
+    status: verified
+    repo: github.com/john-doe-example/booking-api
+    stack: [TypeScript, REST API design, OpenAPI/Swagger, GCP Cloud Run]
+    tags: [api, cloud]
+    text: >-
+      Production-style backend with REST APIs, OpenAPI/Swagger documentation, CI/CD, and containerised
+      deployment on Cloud Run.
+  - id: proj.hobby_game
+    name: 2D action game (in development)
+    hobby: true
+    source: code
+    status: verified
+    stack: [Godot 4, GDScript]
+    tags: [games]
+    text: 2D action game in Godot 4 with a platform-abstraction layer so one codebase ships to web, PC and mobile.
+
+education:
+  - id: edu.university
+    source: user
+    status: verified
+    institution: Example University
+    location: Springfield
+    degree: B.Eng. Electrical/Electronics Engineering
+    end: 2016-09
+
+# ---------------------------------------------------------------------------
+# Candidate: facts and motivations for application-form questions.
+# Facts are copied, never invented; motivations are the candidate's own words to build answers from.
+# ---------------------------------------------------------------------------
+candidate:
+  preferred_name: John Doe
+  website: https://john-doe.example.com
+  linkedin: https://www.linkedin.com/in/john-doe-example/
+  based_in: Lisbon, Portugal
+  relocation:
+    open_to: [United States, United Kingdom, Europe, Singapore, Japan, Australia, New Zealand]
+  work_authorisation: Authorised to work in the EU; would need visa sponsorship elsewhere.
+  start: first week of next month          # rendered as a concrete date at answer time
+  salary:
+    rule: Within the posted salary range when the posting states one.
+    fallback: USD 80,000–120,000 per year
+  why_looking: >-
+    Looking for long-term stability and a place to grow my career and contribute over the long run.
+  proudest_project:
+    bullet: company_a.erp_pipeline
+    note: Say it with pride; this is the work the candidate is proudest of.
+  motivation:
+    source: user
+    text: |-
+      What motivates me is the gap between a system that seems to work and one that is actually right. I keep coming back to a problem until I understand it fully.
+
+      My trading system is the clearest example. I started it while learning Rust, and it is now about 576 commits made on 182 different days. I rebuilt the core approach four times, and wrote smaller prototypes and backtests to test ideas before committing to them.
+
+      The most useful lessons only appeared after the system ran for days: a position closed on the exchange that my bot didn't notice, and two machines that drew different conclusions from the same market. Each taught me to stop trusting my own state and verify it, which led to a reconciliation loop that compares my records with the exchange's.
+
+# ---------------------------------------------------------------------------
+# Hard blocklist
+# ---------------------------------------------------------------------------
+never_claim:
+  - serial port
+  - serialport
+  - USB
+  - N-API
+  - Modbus
+
+# ---------------------------------------------------------------------------
+# UNVERIFIED: the tailor never sees this section.
+# ---------------------------------------------------------------------------
+unverified:
+  devops_cv:
+    note: >-
+      An older DevOps CV names different employers for the same periods and makes claims nothing in
+      the code supports. Quarantined; never used by the pipeline.
+    employers: [Company X, Company Y]   # the validator rejects any of these in generated text
+    claims:
+      - Prometheus + Grafana monitoring
+      - Jenkins / GitLab CI pipelines
+      - On-prem → AWS migration
+    skills: [Kubernetes, Docker Swarm, Jenkins, GitLab CI, Terraform, CloudFormation, Ansible,
+             Pulumi, Prometheus, Grafana, Datadog, PowerShell, Go, Azure]

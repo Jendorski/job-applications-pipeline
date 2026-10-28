@@ -1,0 +1,56 @@
+{
+  "company": "Company F",
+  "role": "Backend Software Engineer",
+  "track": "backend",
+  "headline": "Senior Backend Engineer (Node.js / TypeScript)",
+  "location": "Amsterdam",
+  "summary": "Backend engineer with {years}+ years building and running production services, currently on industrial IoT at Company A: factory-monitoring and device-control backends that ingest machine data from factory gateways, write values back to machines on the shop floor, and deploy to on-premise and edge hardware. Since 2023 at Company B I have been the main backend author of Node.js/TypeScript marketplace and payments platforms, where a dropped or duplicated transaction has a direct cost. I specialise in event-driven and real-time services that talk to systems whose timing cannot be trusted (devices, ERPs, blockchain networks, payment providers) and stay correct under retries, delays and partial failure.",
+  "skill_groups": [
+    {"label": "Backend", "skills": ["Node.js", "TypeScript", "Express", "NestJS", "Python", "FastAPI", "REST API design", "OpenAPI/Swagger"]},
+    {"label": "Industrial & IoT", "skills": ["machine-data ingestion", "remote write-back to devices", "OEE/TEEP KPIs"]},
+    {"label": "Real-Time & Async", "skills": ["Socket.IO", "WebSockets", "event-driven architecture", "webhooks", "outbox pattern", "BullMQ", "idempotency", "exponential backoff"]},
+    {"label": "Data", "skills": ["PostgreSQL", "MongoDB", "MS SQL Server", "Redis", "Firestore", "SQLAlchemy", "Alembic", "Sequelize"]},
+    {"label": "Security", "skills": ["JWT authentication", "API keys with scoped access", "constant-time secret comparison", "rate limiting"]},
+    {"label": "Delivery & Infrastructure", "skills": ["Docker", "GitHub Actions", "Tailscale", "Cloudflare Tunnel", "AWS", "GCP Cloud Run", "Linux"]}
+  ],
+  "experience": {
+    "company_a": [
+      {"bullet_id": "company_a.monitoring_platform"},
+      {"bullet_id": "company_a.device_writeback"},
+      {"bullet_id": "company_a.security"},
+      {"bullet_id": "company_a.erp_pipeline"},
+      {"bullet_id": "company_a.deploy"},
+      {"bullet_id": "company_a.tracking_backend"}
+    ],
+    "company_b": [
+      {"bullet_id": "company_b.marketplace"},
+      {"bullet_id": "company_b.onchain_payments"},
+      {"bullet_id": "company_b.core_api"},
+      {"bullet_id": "company_b.nestjs_migration"}
+    ],
+    "company_d": [
+      {"bullet_id": "company_d.distribution"},
+      {"bullet_id": "company_d.webhooks"},
+      {"bullet_id": "company_d.cicd"}
+    ],
+    "company_e": [
+      {"bullet_id": "company_e.fiat_crypto"},
+      {"bullet_id": "company_e.ledger"},
+      {"bullet_id": "company_e.reconciliation"}
+    ]
+  },
+  "projects": ["proj.realtime_chat", "proj.booking_api"],
+  "include_education": true,
+  "cover_letter": {
+    "date": "2026-10-27",
+    "greeting": "Dear Company F hiring team,",
+    "paragraphs": [
+      "I’m applying for the Backend Software Engineer role. What stands out to me is that the backend here sits between software and physical devices in a POS environment: when a terminal drops its connection or a command arrives twice, a sale is lost or a payment is wrong. That is close to what I do today at Company A, and to the payment systems I built before that.",
+      "At Company A I build backends for industrial monitoring in manufacturing plants. Machine data comes in from factory gateways and becomes production events and KPIs. I also built the path in the other direction: when a work order starts, the backend writes product, mould and cycle-time values back to the machine’s gateway, with per-machine tag mapping, an enable toggle that needs explicit confirmation, a local kill switch and locking against concurrent writes. A wrong value on a running machine is worse than no value, so the safeguards came first. I hardened the device endpoints’ authentication, built the SAP confirmation pipeline with an outbox and retries, and automated deployments to on-premise factory VMs.",
+      "Since 2023 I have also worked with Company B, part-time since this year, on Node.js/TypeScript marketplace platforms: I am the main backend author of its core API (PostgreSQL, Redis, BullMQ), built marketplace services on MongoDB with real-time chat over Socket.IO, and built the USDC deposit and escrow flows on Avalanche. Earlier, at Company E, I built fiat-to-crypto payment flows and a scheduled job that reconciles transactions against the chain.",
+      "My device work so far has been over network protocols such as HTTP and WebSockets. The hard parts carry over to any transport: devices that answer late or not at all, connections that need supervising, and commands that must be safe to retry. I have also written C++ and Rust, and I expect to be productive at the native layer quickly.",
+      "I’m open to relocating to Amsterdam, and I would welcome the chance to discuss how I can help make your device-facing services robust."
+    ],
+    "sign_off": "Kind regards,"
+  }
+}

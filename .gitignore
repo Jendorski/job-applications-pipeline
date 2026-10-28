@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+applications/
+data/
+fonts/
+inbox/
+.DS_Store
+plans/
+inbox/*profile/

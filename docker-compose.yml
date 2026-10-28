@@ -1,0 +1,28 @@
+# `docker compose up -d` starts the watcher, which runs until stopped and restarts with Docker.
+# One-off commands still work alongside it: docker compose run --rm pipeline jap <command>
+services:
+  pipeline:
+    build: .
+    command: ["jap", "watch"]
+    restart: unless-stopped
+    stop_grace_period: 5m  # docker stop lets the current job finish (a job takes 1–3 minutes)
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./src:/app/src:ro
+      - ./profile:/app/profile  # writable so `jap init` can create it; nothing else writes here
+      - ./templates:/app/templates:ro
+      - ./fixtures:/app/fixtures:ro
+      - ./inbox:/app/inbox
+      - ./applications:/app/applications
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "jap", "health"]
+      interval: 60s
+      timeout: 15s
+      start_period: 30s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: "5m", max-file: "3"}
